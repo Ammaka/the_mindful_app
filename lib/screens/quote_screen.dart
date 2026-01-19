@@ -33,6 +33,8 @@ class _QuoteScreenState extends State<QuoteScreen> {
       final List quotesJson = json.decode(response.body);
       final Quote quote = Quote.fromJSON(quotesJson[0]);
       return quote;
+    } else if (response.statusCode == 429) {
+      return Quote(text: "Too many requests, try again later", author: '');
     } else {
       return Quote(text: "error retrieving Quote", author: '');
     }
